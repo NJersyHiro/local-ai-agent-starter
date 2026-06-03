@@ -42,7 +42,12 @@ make eval                        # ★ RAG品質を Ragas で評価（差別化�
 - `openai`（`uv pip install -e ".[openai]"` ＋ `OPENAI_API_KEY`）
 - `gemini`（`uv pip install -e ".[gemini]"` ＋ `GOOGLE_API_KEY`）
 
-> 評価のジャッジは強いモデルが望ましい。**エージェントはローカル、評価だけ `LLM_PROVIDER=openai`** という併用が実務的。
+> 評価のジャッジは強いモデルが望ましい。**エージェントはローカルのまま、評価ジャッジだけ** `JUDGE_PROVIDER=openai` にできる（`make eval` 時のみ強モデルを使う実務的な構成）。
+
+## 監視（任意・Langfuse）
+`.env` で `LANGFUSE_ENABLED=1` ＋ `LANGFUSE_PUBLIC_KEY/SECRET_KEY` を設定すると、
+エージェント実行のトレース・コスト・レイテンシが Langfuse に記録される（未設定なら何もしない）。
+インストール: `uv pip install -e ".[observability]"`
 
 ## 構成
 | パス | 役割 |

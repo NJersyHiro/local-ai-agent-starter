@@ -13,6 +13,7 @@ from langchain_mcp_adapters.client import MultiServerMCPClient
 from langgraph.prebuilt import create_react_agent
 
 from .config import get_llm
+from .observability import get_callbacks
 from .rag import retrieve
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -66,6 +67,7 @@ async def ask(question: str) -> str:
                 {"role": "system", "content": SYSTEM},
                 {"role": "user", "content": question},
             ]
-        }
+        },
+        config={"callbacks": get_callbacks()},  # 監視(任意・Langfuse)
     )
     return result["messages"][-1].content

@@ -25,7 +25,7 @@ from ragas.metrics import (
     faithfulness,
 )
 
-from src.config import get_embeddings, get_llm
+from src.config import get_judge_embeddings, get_judge_llm
 from src.rag import rag_answer
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -46,8 +46,10 @@ def main() -> None:
 
     dataset = Dataset.from_dict(rows)
 
-    judge_llm = LangchainLLMWrapper(get_llm())
-    judge_emb = LangchainEmbeddingsWrapper(get_embeddings())
+    # ジャッジは JUDGE_PROVIDER で切替可（エージェントはローカルのまま、
+    # 評価だけ強いモデルにするとスコアが安定する）。
+    judge_llm = LangchainLLMWrapper(get_judge_llm())
+    judge_emb = LangchainEmbeddingsWrapper(get_judge_embeddings())
 
     result = evaluate(
         dataset=dataset,
