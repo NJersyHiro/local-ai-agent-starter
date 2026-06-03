@@ -19,7 +19,7 @@ def _llm_for(provider: str):
     if provider == "ollama":
         from langchain_ollama import ChatOllama
 
-        return ChatOllama(model=os.getenv("OLLAMA_LLM", "qwen2.5:7b"), temperature=0)
+        return ChatOllama(model=os.getenv("OLLAMA_LLM", "qwen2.5:14b"), temperature=0)
     if provider == "openai":
         from langchain_openai import ChatOpenAI
 

@@ -58,11 +58,12 @@ make eval                        # ★ RAG品質を Ragas で評価（差別化�
 | `src/agent.py` | LangGraph ReActエージェント（RAG＋MCPツール） |
 | `eval/evaluate.py` | Ragas評価（Faithfulness/AnswerRelevancy/ContextRecall/Precision） |
 
-## 評価結果の例（ローカル qwen2.5 をジャッジに使用）
+## 評価結果の例（ジャッジ＝ローカル qwen2.5:7b の実測）
 ```
 faithfulness: 0.78 | context_recall: 1.00 | context_precision: 0.67 | answer_relevancy: 0.41
 ```
 > `answer_relevancy` が不自然に低いのは、**小型ローカルモデルをジャッジに使うと評価が不安定**になる典型例。
+> （エージェント本体の既定モデルは tool 呼び出しが安定する **qwen2.5:14b**。評価ジャッジは `JUDGE_PROVIDER` で別途切替可。）
 > 本番では `LLM_PROVIDER=openai` 等でジャッジだけ強いモデルに切り替えるとスコアが安定する。
 > 「評価そのものの信頼性を設計する」のがこのスターターの主眼。
 
